@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MdDelete } from "react-icons/md";
+import PostList from "../store/Post-List-Provider";
 
 /**
  * Card component
@@ -6,22 +8,31 @@ import React from "react";
  * - Accepts optional `items` prop: array of { id, title, description, image, tag }
  */
 function Card({ post }) {
-  console.log(post.tags);
+  const {deletePost} = useContext(PostList);
+  // console.log(deletePost)
+  
   return (
     <>
-      <div className="card p-3 mb-3  max-w-[50%] ">
+    <center>
+
+    
+      <div className="card p-3 mb-3  max-w-[50%] text-start">
         <div className="card-body">
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            {post.reactions}
-            <span class="visually-hidden">unread messages</span>
-          </span>
+          <div className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+           onClick={()=>{deletePost(post.id)}}>
+            <MdDelete />
+          </div>
           <h5 className="card-title">{post.title}</h5>
           <p className="card-text">{post.body}</p>
-          {post.tags.map((tag) => (
-            <span class="badge text-bg-primary m-1">{tag}</span>
+          {post.tags.map((tag,index) => (
+            <span key={index} className="badge text-bg-primary m-1" >{tag}</span>
           ))}
+          <div className="alert alert-warning mt-2" role="alert">
+            This post has {post.reactions} reactions!
+          </div>
         </div>
       </div>
+      </center>
     </>
   );
 }

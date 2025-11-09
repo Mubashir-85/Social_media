@@ -4,11 +4,10 @@ import PostList from "../store/Post-List-Provider";
 
 function CardList() {
   const { postList } = useContext(PostList);
-  console.log(postList);
   return (
     <>
-      {postList.map((post) => (
-        <Card key={post.id} post={post} />
+      {postList.map((post,index) => (
+        <Card key={post.id || index} post={post} />
       ))}
 
       

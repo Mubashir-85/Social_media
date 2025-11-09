@@ -1,15 +1,41 @@
-import { useReducer } from "react";
+import { useId, useReducer } from "react";
 import PostList from "./Post-List-Provider";
 
 const postListReducer = (currentPost, action) => {
-  return currentPost;
+  let newPost = currentPost;
+  if (action.type === "DELETE_POST") {
+    newPost = currentPost.filter((post) => post.id !== action.payload.postId);
+  } else if( action.type === "ADD_POST") {
+    newPost = [action.payload, ...currentPost];
+  }
+  return newPost;
 };
 
 const CardListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(postListReducer, default_value);
+  const [postList, dispatchPostList] = useReducer(
+    postListReducer,
+    default_value
+  );
 
-  const addPost = () => {};
-  const deletePost = () => {};
+  const addPost = (userId, title, postBody, reactionCount, tags) => {
+    dispatchPostList({
+      type: "ADD_POST",
+      payload: {
+        id: Math.random().toString(),
+        title: title,
+        body: postBody,
+        userId: userId,
+        tags: tags,
+        reactions: reactionCount,
+      },
+    });
+  };
+  const deletePost = (postId) => {
+    dispatchPostList({
+      type: "DELETE_POST",
+      payload: { postId },
+    });
+  };
   return (
     <PostList.Provider
       value={{
