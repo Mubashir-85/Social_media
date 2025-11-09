@@ -16,12 +16,12 @@ function App() {
         <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab}/>
 
         {/* Main content area */}
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 ">
           {/* Navbar */}
           <Header />
 
           {/* Page content (cards) */}
-          <main className="p-6 bg-gray-50 flex-1 overflow-y-auto">
+          <main className="p-6 bg-gray-700 flex-1 overflow-y-auto">
             {selectedTab === "home" ? <CardList /> : <CreatePost />}
           </main>
         </div>

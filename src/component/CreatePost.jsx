@@ -9,29 +9,27 @@ function CreatePost() {
   const reactionselement = useRef();
   const tagselement = useRef();
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     const userId = userIdelement.current.value;
     const title = postTitleelement.current.value;
     const postBody = bodyelement.current.value;
     const reactionCount = reactionselement.current.value;
-    const tags = tagselement.current.value.split(' ');
+    const tags = tagselement.current.value.split(" ");
 
-    userIdelement.current.value = ""
-    postTitleelement.current.value = ""
-    bodyelement.current.value = ""
-    reactionselement.current.value = ""
-    tagselement.current.value = ""
+    userIdelement.current.value = "";
+    postTitleelement.current.value = "";
+    bodyelement.current.value = "";
+    reactionselement.current.value = "";
+    tagselement.current.value = "";
 
-    addPost(userId,title,postBody,reactionCount,tags);
-
-
-  }
+    addPost(userId, title, postBody, reactionCount, tags);
+  };
   return (
     <>
-      <form onSubmit={handleSubmit} className="w-[50%] items-center mx-auto">
+      <form onSubmit={handleSubmit} className="w-[50%] items-center mx-auto text-white ">
         <div className="mb-3">
-          <label htmlFor="userId" className="form-label">
+          <label htmlFor="userId" className="form-label ">
             User ID
           </label>
           <input

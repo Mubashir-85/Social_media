@@ -14,7 +14,7 @@ function CardList() {
             id: post.id,
             title:post.title,
             body:post.body,
-            reaction: post.reactions.likes || post.reaction,
+            // reaction: post.reactions.likes || post.reaction,
             tags: post.tags || ["GENERAL"],
         }))
         addPosts(cleanedPosts)

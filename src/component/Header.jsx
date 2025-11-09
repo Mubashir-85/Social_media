@@ -4,13 +4,13 @@ function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="w-full bg-white shadow sticky top-0 z-50">
+    <header className="w-full bg-black text-white shadow sticky top-0 z-50">
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-4 py-2">
-        <div className="font-bold text-lg text-gray-900">SocialApp</div>
+        <div className="font-bold text-lg text-gray-500">SocialApp</div>
 
         {/* Desktop links + search */}
         <div className="hidden md:flex items-center gap-6">
-          <ul className="flex items-center gap-4 list-none m-0 p-0">
+          <ul className="flex items-center gap-4 list-none m-0 p-0 ">
             <li><a className="text-gray-700 hover:bg-gray-100 px-3 py-1 rounded-md" href="#">Home</a></li>
             <li><a className="text-gray-700 hover:bg-gray-100 px-3 py-1 rounded-md" href="#">About</a></li>
             <li><a className="text-gray-700 hover:bg-gray-100 px-3 py-1 rounded-md" href="#">Posts</a></li>
