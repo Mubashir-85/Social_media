@@ -1,11 +1,12 @@
 import { createContext } from "react";
 
-const Default_value = {
+
+const PostList = createContext({
     postList : [],
     addPost : ()=>{},
+    addPosts:()=>{},
     deletePost : ()=>{},
-};
-const PostList = createContext(Default_value);
+});
 
 
 
