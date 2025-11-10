@@ -3,7 +3,7 @@ import React from 'react'
 function Sidebar({selectedTab, setSelectedTab}) {
   return (
     <div
-      className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
+      className="d-flex flex-column  p-3 text-bg-dark"
       style={{ width: '180px' }}
     >
       <a

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "./Card";
 import PostList from "../store/Post-List-Provider";
 import Welcome from "./Welcome";
@@ -6,8 +6,9 @@ import Welcome from "./Welcome";
 function CardList() {
   const { postList , addPosts } = useContext(PostList);
 //   console.log(postList)
-  const handleOnclick = () => {
-    fetch("https://dummyjson.com/posts")
+
+useEffect(()=>{
+  fetch("https://dummyjson.com/posts")
       .then((res) => res.json())
       .then((data)=>{
         const cleanedPosts = data.posts.map((post)=>({
@@ -19,12 +20,12 @@ function CardList() {
         }))
         addPosts(cleanedPosts)
       })
-  };
+},[])
 
   return (
     <>
 
-      {postList.length === 0 && (<Welcome handleOnclick={handleOnclick} />)}
+      {postList.length === 0 && (<Welcome/>)}
       {postList.map((post, index) => (
         <Card key={post.id || index} post={post} />
       ))}
