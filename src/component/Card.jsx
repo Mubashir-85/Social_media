@@ -2,34 +2,33 @@ import React, { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import PostList from "../store/Post-List-Provider";
 
-/**
- * Card component
- * - Renders a responsive grid of cards using Tailwind classes
- * - Accepts optional `items` prop: array of { id, title, description, image, tag }
- */
 function Card({ post }) {
   const { deletePost } = useContext(PostList);
 
   return (
-    <div className="max-w-xl w-full mx-auto p-4 bg-black text-white rounded-lg shadow-sm mb-4 relative">
+    <div className="w-full sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto p-3 sm:p-4 md:p-5 bg-[#282828] text-white rounded-lg shadow-2xl mb-4 relative">
       <button
         onClick={() => deletePost(post.id)}
         aria-label="Delete post"
-        className="absolute -top-2 -right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 focus:outline-none"
+        className="absolute -top-2 -right-2 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 focus:outline-none transition text-lg sm:text-xl"
       >
         <MdDelete />
       </button>
 
-      <h5 className="text-lg font-semibold text-gray-900 mb-2">{post.title}</h5>
-      <p className="text-sm text-gray-300 mb-3">{post.body}</p>
+      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#E0E0E0] mb-2 pr-8">
+        {post.title}
+      </h2>
+      <p className="text-xs sm:text-sm md:text-base font-semibold text-[#B0B0B0] mb-3 leading-relaxed">
+        {post.body}
+      </p>
 
       <div className="flex flex-wrap gap-2">
-        {post.tags.map((tag, index) => (
+        {post.tags?.map((tags, index) => (
           <span
             key={index}
-            className="text-xs bg-indigo-100 text-indigo-900 font-semibold px-2 py-0.5 rounded"
+            className="text-xs sm:text-sm bg-blue-900 text-white font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded transition hover:bg-blue-800"
           >
-            {tag}
+            {tags}
           </span>
         ))}
       </div>

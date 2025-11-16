@@ -1,7 +1,9 @@
 import React, { useContext, useRef } from "react";
 import PostList from "../store/Post-List-Provider";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  const navigation = useNavigate();
   const { addPost } = useContext(PostList);
   const userIdelement = useRef();
   const postTitleelement = useRef();
@@ -14,20 +16,42 @@ function CreatePost() {
     const userId = userIdelement.current.value;
     const title = postTitleelement.current.value;
     const postBody = bodyelement.current.value;
-    const reactionCount = reactionselement.current.value;
     const tags = tagselement.current.value.split(" ");
+
+    if(!title.trim() || !postBody.trim()){
+      alert("please fill all the fields before posting!")
+      return
+    }
 
     userIdelement.current.value = "";
     postTitleelement.current.value = "";
     bodyelement.current.value = "";
-    reactionselement.current.value = "";
     tagselement.current.value = "";
 
-    addPost(userId, title, postBody, reactionCount, tags);
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: Math.random().toString(),
+        title: title,
+        body: postBody,
+        userId: userId,
+        tags: tags,
+      }),
+    })
+      .then((res) => res.json())
+      .then((post) => {
+        addPost(post)
+        navigation("/");
+      });
   };
   return (
     <>
-      <form onSubmit={handleSubmit} className="w-[50%] items-center mx-auto text-white ">
+      <form
+        onSubmit={handleSubmit}
+        className="w-[50%] items-center mx-auto text-white border p-5 mt-10 rounded-lg bg-gray-800"
+      >
         <div className="mb-3">
           <label htmlFor="userId" className="form-label ">
             User ID
@@ -65,18 +89,6 @@ function CreatePost() {
             ref={bodyelement}
           ></textarea>
         </div>
-        <div className="mb-3">
-          <label htmlFor="reactions" className="form-label">
-            Number of Reactions
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="reactions"
-            placeholder="How many people reacted to your post?"
-            ref={reactionselement}
-          />
-        </div>
 
         <div className="mb-3">
           <label htmlFor="tags" className="form-label">
@@ -98,7 +110,11 @@ function CreatePost() {
         </button>
       </form>
     </>
-  );
-}
+
+    );
+ }
 
 export default CreatePost;
+
+
+  

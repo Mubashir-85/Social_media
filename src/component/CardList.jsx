@@ -1,33 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "./Card";
 import PostList from "../store/Post-List-Provider";
+import Loading from "./Loading";
 import Welcome from "./Welcome";
 
-function CardList() {
-  const { postList , addPosts } = useContext(PostList);
-//   console.log(postList)
+function CardList({search}) {
+  const { postList, fetching } = useContext(PostList);
+  const filterPosts  = postList.filter((post)=>{
+    return post.title.toLowerCase().includes(search.toLowerCase())||
+    post.body.toLowerCase().includes(search.toLowerCase())||
+    post.tags.some((tag)=>tag.toLowerCase().includes(search.toLowerCase()))
+  })
+  
 
-useEffect(()=>{
-  fetch("https://dummyjson.com/posts")
-      .then((res) => res.json())
-      .then((data)=>{
-        const cleanedPosts = data.posts.map((post)=>({
-            id: post.id,
-            title:post.title,
-            body:post.body,
-            // reaction: post.reactions.likes || post.reaction,
-            tags: post.tags || ["GENERAL"],
-        }))
-        addPosts(cleanedPosts)
-      })
-},[])
 
   return (
     <>
-
-      {postList.length === 0 && (<Welcome/>)}
-      {postList.map((post, index) => (
-        <Card key={post.id || index} post={post} />
+      {fetching && <Loading/>}
+      {!fetching && postList.length === 0 && (<Welcome/>)}
+      {!fetching && filterPosts.map((post, index) => (
+        <Card key={`${post.id}-${index}`} post={post} />
       ))}
     </>
   );

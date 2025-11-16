@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect, useState } from "react";
 import PostList from "./Post-List-Provider";
 
 const postListReducer = (currentPost, action) => {
@@ -14,19 +14,15 @@ const postListReducer = (currentPost, action) => {
 };
 
 const CardListProvider = ({ children }) => {
-  const [postList, dispatchPostList] = useReducer(postListReducer, []);
+  const [postList, dispatchPostList] = useReducer(postListReducer, [], () => {
+    const localData = localStorage.getItem("posts");
+    return localData ? JSON.parse(localData) : [];
+  });
 
-  const addPost = (userId, title, postBody, reactionCount, tags) => {
+  const addPost = (post) => {
     dispatchPostList({
       type: "ADD_POST",
-      payload: {
-        id: Math.random().toString(),
-        title: title,
-        body: postBody,
-        userId: userId,
-        tags: tags,
-        reactions: reactionCount,
-      },
+      payload: post,
     });
   };
 
@@ -42,6 +38,30 @@ const CardListProvider = ({ children }) => {
       payload: { postId },
     });
   };
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(postList));
+  }, [postList]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (postList.length === 0) {
+      fetch("https://dummyjson.com/posts")
+        .then((res) => res.json())
+        .then((data) => {
+          const cleanedPosts = data.posts.map((post) => ({
+            id: post.id,
+            title: post.title,
+            body: post.body,
+            tags: post.tags || ["GENERAL"],
+          }));
+          addPosts(cleanedPosts);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, []);
   return (
     <PostList.Provider
       value={{
@@ -49,6 +69,7 @@ const CardListProvider = ({ children }) => {
         addPost: addPost,
         deletePost: deletePost,
         addPosts: addPosts,
+        fetching: loading,
       }}
     >
       {children}

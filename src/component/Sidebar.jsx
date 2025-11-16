@@ -1,51 +1,76 @@
-import React from 'react'
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 
-function Sidebar({selectedTab, setSelectedTab}) {
+
+function Sidebar({ selectedTab, setSelectedTab }) {
   return (
-    <div
-      className="d-flex flex-column  p-3 text-bg-dark"
-      style={{ width: '180px' }}
-    >
-      <a
-        href="/"
-        className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-      >
-        <svg className="bi pe-none me-2" width="40" height="32" aria-hidden="true">
-          <use xlinkHref="#bootstrap" />
-        </svg>
-        <span className="fs-4">Sidebar</span>
-      </a>
+    <div className="w-full lg:w-48 p-4 sm:p-5 md:p-6 bg-gray-900 text-white flex flex-col lg:flex-col items-center lg:items-start">
+      <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-4 lg:mb-6 w-full text-center lg:text-left">
+        Menu
+      </h2>
 
-      <hr />
-
-      <ul className="nav nav-pills flex-column mb-auto">
-        <li className="nav-item"
-        onClick={()=>{setSelectedTab("home")}}>
-          <a href="#" className={`nav-link text-white ${selectedTab === 'home' && 'active'}`} aria-current="page">
-            <svg className="bi pe-none me-2" width="16" height="5" aria-hidden="true">
+      <ul className="flex  flex-col gap-2 md:gap-3 w-full">
+        <li
+          className="w-full"
+          onClick={() => {
+            setSelectedTab("home");
+          }}
+        >
+          <Link
+            to="/"
+            className={`flex items-center justify-center lg:justify-start gap-2 no-underline text-white px-3 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-sm font-medium ${
+              selectedTab === "home" && "bg-gray-700"
+            } hover:bg-gray-700 transition w-full`}
+            aria-current="page"
+          >
+            <svg
+              className="w-4 h-4 md:w-5 md:h-5 shrink-0 "
+              width="16"
+              height="5"
+              aria-hidden="true"
+            >
               <use xlinkHref="#home" />
             </svg>
-            Home
-          </a>
+            <span className="flex flex-row gap-2 lg:text-sm text-xs sm:text-sm">
+              
+              <FaHome />     Home
+
+            </span>
+          </Link>
         </li>
 
         <li
-        onClick={()=>{setSelectedTab("createPost")}}>
-          <a href="#" className={`nav-link text-white ${selectedTab === 'createPost' && 'active'}`}>
-            <svg className="bi pe-none me-2" width="16" height="5" aria-hidden="true">
+          className="w-full"
+          onClick={() => {
+            setSelectedTab("create-post");
+          }}
+        >
+          <Link
+            to="/create-post"
+            className={`flex items-center justify-center lg:justify-start gap-2 no-underline text-white px-3 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-sm font-medium ${
+              selectedTab === "create-post" && "bg-gray-700"
+            } hover:bg-gray-700 transition w-full`}
+          >
+            <svg
+              className="w-4 h-4 md:w-5 md:h-5 shrink-0"
+              width="16"
+              height="5"
+              aria-hidden="true"
+            >
               <use xlinkHref="#speedometer2" />
             </svg>
-            Dashboard
-          </a>
+            <span className="flex flex-row gap-2  lg:text-sm text-xs sm:text-sm">
+              <FaPencil /> Create Post
+            </span>
+          </Link>
         </li>
-
-       
       </ul>
-
-      <hr />
-
     </div>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;
+
+
