@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
-
 
 function Sidebar({ selectedTab, setSelectedTab }) {
   return (
@@ -11,7 +10,7 @@ function Sidebar({ selectedTab, setSelectedTab }) {
         Menu
       </h2>
 
-      <ul className="flex  flex-col gap-2 md:gap-3 w-full">
+      <ul className="flex flex-col gap-2 md:gap-3 w-full">
         <li
           className="w-full"
           onClick={() => {
@@ -23,20 +22,10 @@ function Sidebar({ selectedTab, setSelectedTab }) {
             className={`flex items-center justify-center lg:justify-start gap-2 no-underline text-white px-3 py-2 rounded-md text-xs sm:text-sm md:text-base lg:text-sm font-medium ${
               selectedTab === "home" && "bg-gray-700"
             } hover:bg-gray-700 transition w-full`}
-            aria-current="page"
           >
-            <svg
-              className="w-4 h-4 md:w-5 md:h-5 shrink-0 "
-              width="16"
-              height="5"
-              aria-hidden="true"
-            >
-              <use xlinkHref="#home" />
-            </svg>
-            <span className="flex flex-row gap-2 lg:text-sm text-xs sm:text-sm">
-              
-              <FaHome />     Home
-
+            <FaHome className="w-4 h-4 md:w-5 md:h-5 shrink-0" />
+            <span className="flex items-center gap-2 lg:text-sm text-xs sm:text-sm">
+              Home
             </span>
           </Link>
         </li>
@@ -53,16 +42,9 @@ function Sidebar({ selectedTab, setSelectedTab }) {
               selectedTab === "create-post" && "bg-gray-700"
             } hover:bg-gray-700 transition w-full`}
           >
-            <svg
-              className="w-4 h-4 md:w-5 md:h-5 shrink-0"
-              width="16"
-              height="5"
-              aria-hidden="true"
-            >
-              <use xlinkHref="#speedometer2" />
-            </svg>
-            <span className="flex flex-row gap-2  lg:text-sm text-xs sm:text-sm">
-              <FaPencil /> Create Post
+            <FaPencil className="w-4 h-4 md:w-5 md:h-5 shrink-0" />
+            <span className="flex items-center gap-2 lg:text-sm text-xs sm:text-sm">
+              Create Post
             </span>
           </Link>
         </li>
@@ -72,5 +54,3 @@ function Sidebar({ selectedTab, setSelectedTab }) {
 }
 
 export default Sidebar;
-
-

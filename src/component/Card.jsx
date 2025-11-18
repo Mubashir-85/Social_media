@@ -6,7 +6,7 @@ function Card({ post }) {
   const { deletePost } = useContext(PostList);
 
   return (
-    <div className="w-full sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto p-3 sm:p-4 md:p-5 bg-[#282828] text-white rounded-lg shadow-2xl mb-4 relative">
+    <div className="w-full sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto p-3 sm:p-4 md:p-5 bg-sky-50 text-white rounded-lg shadow-2xl mb-4 relative hover:shadow-black transition">
       <button
         onClick={() => deletePost(post.id)}
         aria-label="Delete post"
@@ -15,10 +15,10 @@ function Card({ post }) {
         <MdDelete />
       </button>
 
-      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#E0E0E0] mb-2 pr-8">
+      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-2 pr-8">
         {post.title}
       </h2>
-      <p className="text-xs sm:text-sm md:text-base font-semibold text-[#B0B0B0] mb-3 leading-relaxed">
+      <p className="text-xs sm:text-sm md:text-base font-semibold text-gray-700 mb-3 leading-relaxed">
         {post.body}
       </p>
 

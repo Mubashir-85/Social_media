@@ -18,7 +18,7 @@ function App() {
           <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
           <div className="flex flex-col flex-1 w-full">
             <Header onSearch={setSearch} />
-            <main className="p-3 sm:p-4 md:p-6 flex-1 overflow-y-auto bg-gray-500 w-full">
+            <main className="p-3 sm:p-4 md:p-6 flex-1 overflow-y-auto bg-gray-300 w-full">
               <Routes>
                 <Route path="/" element={<CardList search={search} />} />
                 <Route path="/create-post" element={<CreatePost />} />
